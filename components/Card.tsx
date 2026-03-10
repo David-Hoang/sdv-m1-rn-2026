@@ -1,23 +1,29 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet, StyleProp, ViewStyle, TextStyle, Pressable } from "react-native";
 
+interface CardProps {
+    title: string;
+    done?: boolean;
+    children?: React.ReactNode;
+}
 export default function Card(
-    { children, title, isDone }: 
-    { 
-        children: React.ReactNode; 
-        title: string;
-        isDone: boolean;
-    }) {
-
+    { children, title, done }: CardProps) {
+    const [isDone, setIsDone] = useState(done);
     return (
-            <View style={isDone ? styles.cardDone : styles.card}>
+        <Pressable onPress={() => setIsDone(!isDone)}>
+            <View style={[styles.card,isDone ? styles.cardDone : undefined]}>
                 {title && 
-                    <Text style={isDone ? styles.titleDone : styles.title}>
+                    <Text style={[styles.title, isDone ? styles.titleDone : undefined]}>
                         {title}
                     </Text>
                 }
+                <Text>
+                    {isDone ? "Fait" : "A faire"}
+                </Text>
                 {children}
             </View>
-        );
+        </Pressable>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -26,29 +32,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#a5a5a5",
         backgroundColor: "#cecece",
-        padding: 8,
+        padding: 20,
         width : '100%',
         display : 'flex',
         gap: 10
     },
     cardDone: {
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: "#a5a5a5",
-        backgroundColor: "#cecece",
-        padding: 8,
-        width : '100%',
         opacity: 0.6,
-        display : 'flex',
-        gap: 10
     },
     title: {
         fontSize: 18,
         fontWeight: "bold",
     },
     titleDone: {
-        fontSize: 18,
-        fontWeight: "bold",
+        fontStyle: "italic",
         textDecorationLine: "line-through",
     }
 
