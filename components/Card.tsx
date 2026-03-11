@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, StyleProp, ViewStyle, TextStyle, Pressable } from "react-native";
+
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { TodoType } from "@/datas/todos";
+import { router } from "expo-router";
 
 interface CardProps {
-    title: string;
-    done?: boolean;
+    task: TodoType;
     children?: React.ReactNode;
 }
-export default function Card(
-    { children, title, done }: CardProps) {
-    const [isDone, setIsDone] = useState(done);
+
+export default function Card({ task, children }: CardProps) {
     return (
-        <Pressable onPress={() => setIsDone(!isDone)}>
-            <View style={[styles.card,isDone ? styles.cardDone : undefined]}>
-                {title && 
-                    <Text style={[styles.title, isDone ? styles.titleDone : undefined]}>
-                        {title}
+        <Pressable onPress={() => router.push(`/list/${task.id}`)}>
+            <View style={[styles.card,task.done ? styles.cardDone : undefined]}>
+                {task.title && 
+                    <Text style={[styles.title, task.done ? styles.titleDone : undefined]}>
+                        {task.title}
                     </Text>
                 }
                 <Text>
-                    {isDone ? "Fait" : "A faire"}
+                    {task.done ? "Fait" : "A faire"}
                 </Text>
                 {children}
             </View>

@@ -5,18 +5,18 @@ import { Button } from "react-native";
 export default function index() {
     return (
         <>        
-        <Stack
-            screenOptions={{
-                headerTitleStyle: {
-                fontWeight: "bold",
-                },
-            }}
-        />
+            <Stack
+                screenOptions={{
+                    headerTitleStyle: {
+                    fontWeight: "bold",
+                    },
+                }}
+            />
             <Stack.Screen options={{ title: "Liste de tâches", 
                 headerRight: () => 
                     <Button 
                         title="Ajouter"
-                        onPress={() => router.push('/list/todo-edit')}
+                        onPress={() => router.push('/list/new')}
                     /> 
                 }} />
             <TodoList />

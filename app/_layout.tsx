@@ -1,9 +1,13 @@
 import { Stack } from "expo-router";
+import { TodoProvider } from "../contexts/TodoContext";
 
 export default function RootLayout() {
+    
     return (
-        <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+        <TodoProvider>
+            <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+        </TodoProvider>
     );
 }
