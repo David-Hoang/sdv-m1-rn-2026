@@ -1,10 +1,10 @@
 
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { TodoType } from "@/types/TodoType";
+import { Todo } from "@/types/TodoType";
 import { router } from "expo-router";
 
 interface CardProps {
-    task: TodoType;
+    task: Todo;
     children?: React.ReactNode;
 }
 
@@ -17,8 +17,8 @@ export default function Card({ task, children }: CardProps) {
                         {task.todo}
                     </Text>
                 }
-                <Text>
-                    {task.completed ? "Fait" : "A faire"}
+                <Text style={styles.status}>
+                    {task.completed ? "Fait" : "À faire"}
                 </Text>
                 {children}
             </View>
@@ -28,25 +28,33 @@ export default function Card({ task, children }: CardProps) {
 
 const styles = StyleSheet.create({
     card: {
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: "#a5a5a5",
-        backgroundColor: "#cecece",
+        borderRadius: 12,
+        backgroundColor: "#ffffff",
         padding: 20,
-        width : '100%',
-        display : 'flex',
-        gap: 10
+        width: '100%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        elevation: 2,
     },
     cardDone: {
-        opacity: 0.6,
+        opacity: 0.5,
+        backgroundColor: "#f9fafb",
     },
     title: {
-        fontSize: 18,
-        fontWeight: "bold",
+        fontSize: 17,
+        fontWeight: "500",
+        color: "#1a1a1a",
+        letterSpacing: -0.3,
     },
     titleDone: {
-        fontStyle: "italic",
+        color: "#9ca3af",
         textDecorationLine: "line-through",
+    },
+    status: {
+        fontSize: 13,
+        color: "#6b7280",
+        fontWeight: "400",
     }
-
 });
