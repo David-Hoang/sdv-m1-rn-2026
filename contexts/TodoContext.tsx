@@ -1,11 +1,12 @@
-import { createContext, FC, PropsWithChildren, useState } from "react";
-import { TodoType, Todos } from "../datas/todos";
+import { createContext, FC, PropsWithChildren, useEffect, useState } from "react";
+import { Todo } from "@/types/TodoType";
+import { fetchTodos } from "@/api/dummyJsonApi";
 
 export type TodoContextType = {
-    todo: TodoType[];
-    addTodo: (newTodo: TodoType) => void;
-    updateTodo: (id: number, updatedTodo: TodoType) => void;
-    getSingleTodo: (id: number) => TodoType | undefined;
+    todo: Todo[];
+    addTodo: (newTodo: Todo) => void;
+    updateTodo: (id: number, updatedTodo: Todo) => void;
+    getSingleTodo: (id: number) => Todo | undefined;
 };
 
 export const TodoContext = createContext<TodoContextType>({
@@ -16,17 +17,27 @@ export const TodoContext = createContext<TodoContextType>({
 });
 
 export const TodoProvider: FC<PropsWithChildren> = ({ children }) => {
-    const [todo, setTodo] = useState<TodoType[]>(Todos);
+    const [todo, setTodo] = useState<Todo[]>([]);
+        
+    useEffect(() => {
+        const getTodos = async () => {
+            const data = await fetchTodos();
+            if (data) {
+                setTodo(data.todos);
+            }
+        };
+        getTodos();
+    }, []);
 
     const getSingleTodo = (id: number) => {
         return todo.find((t) => t.id === id);
     };
 
-    const addTodo = (newTodo: TodoType) => {
+    const addTodo = (newTodo: Todo) => {
         setTodo([...todo, newTodo]);
     };
 
-    const updateTodo = (id: number, updatedTodo: TodoType) => {
+    const updateTodo = (id: number, updatedTodo: Todo) => {
         setTodo(todo.map((t) => (t.id === id ? updatedTodo : t)));
     }
     return (

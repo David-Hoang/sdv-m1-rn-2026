@@ -1,6 +1,5 @@
 import TodoEdit from "@/components/todoedit/TodoEdit";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { TodoType } from "@/datas/todos";
 import TodoNew from "@/components/todonew/TodoNew";
 import { useContext } from "react";
 import { TodoContext } from "@/contexts/TodoContext";

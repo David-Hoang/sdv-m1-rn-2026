@@ -1,18 +1,18 @@
-import { TodoType } from "@/datas/todos";
+import { Todo } from "@/types/TodoType";
 import { useContext, useState } from "react";
 import { TextInput, View, Button } from "react-native";
 import { router } from "expo-router";
 import { TodoContext } from "@/contexts/TodoContext";
 
-export default function TodoEdit({selectedTask}: {selectedTask?: TodoType}) {
-    const { updateTodo, todo, getSingleTodo } = useContext(TodoContext);
-    const [ title, setTitle ] = useState(selectedTask?.title ?? "")
+export default function TodoEdit({selectedTask}: {selectedTask?: Todo}) {
+    const { updateTodo, getSingleTodo } = useContext(TodoContext);
+    const [ title, setTitle ] = useState(selectedTask?.todo ?? "")
     
     const updateTitle = () => {
         if (!selectedTask) return;
         const task = getSingleTodo(selectedTask.id);
         if (task) {
-            updateTodo(selectedTask.id, { ...task, title });
+            updateTodo(selectedTask.id, { ...task, todo: title });
         }
         router.push('/list');
     }

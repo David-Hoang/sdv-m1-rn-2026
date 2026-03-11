@@ -9,7 +9,7 @@ export default function TodoNew() {
 
     const newTodo = () => {
         const newId = todo.length > 0 ? Math.max(...todo.map(t => t.id)) + 1 : 1;
-        addTodo({ id: newId, title, done: false });
+        addTodo({ id: newId, todo: title, completed: false, userId: 1 });
         router.push('/list');
     }
     return (

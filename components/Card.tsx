@@ -1,6 +1,6 @@
 
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { TodoType } from "@/datas/todos";
+import { TodoType } from "@/types/TodoType";
 import { router } from "expo-router";
 
 interface CardProps {
@@ -11,14 +11,14 @@ interface CardProps {
 export default function Card({ task, children }: CardProps) {
     return (
         <Pressable onPress={() => router.push(`/list/${task.id}`)}>
-            <View style={[styles.card,task.done ? styles.cardDone : undefined]}>
-                {task.title && 
-                    <Text style={[styles.title, task.done ? styles.titleDone : undefined]}>
-                        {task.title}
+            <View style={[styles.card,task.completed ? styles.cardDone : undefined]}>
+                {task.todo && 
+                    <Text style={[styles.title, task.completed ? styles.titleDone : undefined]}>
+                        {task.todo}
                     </Text>
                 }
                 <Text>
-                    {task.done ? "Fait" : "A faire"}
+                    {task.completed ? "Fait" : "A faire"}
                 </Text>
                 {children}
             </View>
